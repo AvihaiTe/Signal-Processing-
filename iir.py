@@ -32,12 +32,13 @@ if __name__ == '__main__':
     plt.ylabel('Amplitude [dB]')
     plt.grid(which='both', axis='both')
     plt.axvline(wc / (2 * np.pi), color='green')  # cutoff frequency
+    plt.show()
 
     filter_audio = lfilter(z, p, song[:, 0])
     filtered_FFT = abs(fft(filter_audio))
 
     freqs = fftfreq(number_of_samples, 1 / samplerate)
-    plt.plot(freqs, filtered_FFT, 'b-', linewidth=2)
+    plt.plot(np.abs(freqs), filtered_FFT, 'b-', linewidth=2)
     wavfile.write("filtered_song.wav", samplerate, filter_audio.astype(np.int16))
 
     plt.show()
